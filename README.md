@@ -194,8 +194,16 @@ Caused by: java.lang.UnsupportedClassVersionError: org/openjdk/nashorn/api/scrip
 
 
 # ツール3_Antora
+* 詳細は[こちらのリポジトリ](https://github.com/azoom-taiga-sato/antora-demo-playbook)を参照
 
+## セットアップ
+1. 環境設定
+    ```bash
+    $ npm i -D -E antora
+    ```
+2. `antora-playbook.yml`でサイトの詳細設定
 
+3. `$ npx antora --fetch antora-playbook.yml`でサイトを生成して、ローカルで確認
 
 ## 参考文献
 * [Antora Official Docs](https://antora.org/)
