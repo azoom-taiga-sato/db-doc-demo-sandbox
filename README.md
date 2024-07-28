@@ -205,6 +205,25 @@ Caused by: java.lang.UnsupportedClassVersionError: org/openjdk/nashorn/api/scrip
 
 3. `$ npx antora --fetch antora-playbook.yml`でサイトを生成して、ローカルで確認
 
+4. 以下のようなフォルダ構成で作成。
+    ```bash
+    .
+    |-- antora-playbook.yml
+    |-- docs
+    |   |-- antora.yml
+    |   `-- modules
+    |       `-- ROOT
+    |           `-- pages
+    |               `-- index.adoc
+    |-- package-lock.json
+    `-- package.json
+    ```
+    * 各セクションは別リポジトリで管理しても問題ない。
+
+## Antoraとは
+* Javaベースで実装されるサイト生成ツール。
+* AsciiDoc形式のファイルを読み込み、ドキュメントを生成
+
 ## 特徴
 
 ### 🙆
@@ -212,6 +231,7 @@ Caused by: java.lang.UnsupportedClassVersionError: org/openjdk/nashorn/api/scrip
 * Versionで管理可能
 
 ### 🙅
+* AsciiDocで各ファイルを作成する必要がある。tblsであれば、Markdown=>AsciiDocに、Schemaspyであれば、html=>AsciiDocに変換する必要あり?
 
 ## 参考文献
 * [Antora Official Docs](https://antora.org/)
@@ -252,6 +272,7 @@ Caused by: java.lang.UnsupportedClassVersionError: org/openjdk/nashorn/api/scrip
         * a) `$ pip install mkdocs-exclude`
         * b) `mkdocs.yml`のpluginで設定
 
+
 ## MKDocsとは
 * Pythonベースで実装されるドキュメントサイトを生成するための静的サイトジェネレーター
 * Markdown形式のファイルを読み込み、ドキュメントを生成
@@ -284,7 +305,7 @@ Caused by: java.lang.UnsupportedClassVersionError: org/openjdk/nashorn/api/scrip
 [目次に戻る](#目次)
 
 # ツール5_Gitlab
-* 
+* Organization限定で公開可能?
 
 
 ## 参考文献
