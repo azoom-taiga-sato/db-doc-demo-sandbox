@@ -272,6 +272,12 @@ Caused by: java.lang.UnsupportedClassVersionError: org/openjdk/nashorn/api/scrip
         * a) `$ pip install mkdocs-exclude`
         * b) `mkdocs.yml`のpluginで設定
 
+3. `mkdocs serve`でローカル環境でサイトアクセス可能
+
+4. `mkdocs build`でサイトビルド
+
+5. Github actionsでGithub pagesにデプロイ (`.github/workflows/mkdocs-generate.yml`)
+
 
 ## MKDocsとは
 * Pythonベースで実装されるドキュメントサイトを生成するための静的サイトジェネレーター
@@ -283,9 +289,9 @@ Caused by: java.lang.UnsupportedClassVersionError: org/openjdk/nashorn/api/scrip
 * テーマや多言語設定、Nav・サイドバーなどカスタマイズが可能
 * docs直下フォルダが一つのセクションとみなされ、タブになる。1フォルダ = 1セクションでシンプル。
 * 多分、Version管理もできる。[こちら](https://qiita.com/laughingman/items/353b9cffb28c4af38b34)
+* Markdown言語しだけでなく、HTMLファイルも認識する。(Path指定してリンクからアクセス可能)
 
 ### 🙅
-* Markdown言語しか認識できない。HTMLファイルをページとして認識させるためには、
 
 ## 参考文献
 * [MkDocs + plugin : mkdocs-static-i18n で多言語対応サイトを構築する](https://qiita.com/tomoten/items/26706f2eafe84f70b1a6)
@@ -307,10 +313,21 @@ Caused by: java.lang.UnsupportedClassVersionError: org/openjdk/nashorn/api/scrip
 # ツール5_Gitlab
 * Organization限定で公開可能?
 
+## Gitlabとは
+* P
+
+## 特徴
+
+### 🙆
+* 限定公開可能?
+
+### 🙅
+
 
 ## 参考文献
 * [GitLab PagesでER図(SchemaSpy)](https://qiita.com/hkato/items/5949485333aad22d4871)
-*
+* [Gitlab pagesでサイトへのアクセス制限をする・解除する](https://www.serversus.work/topics/iir5lhcfgivsdxpxgdfb/)
+* [GitLabPagesでホームページを公開しよう。](https://qiita.com/flmil/items/13f23425b0fafbfaf982)
 
 [目次に戻る](#目次)
 
