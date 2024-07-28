@@ -1,9 +1,9 @@
 # 目次
-- [ツール1_tbls](#ツール1_tbls)
-- [ツール2_schemaspy](#ツール2_schemaspy)
-- [ツール3_Antora](#ツール3_Antora)
-- [ツール4_MKDocs](#ツール4_MKDocs)
-- [ツール5_Gitlab](#Gitlab)
+- [1 tbls](#tbls)
+- [2 schemaspy](#schemaspy)
+- [3 Antora](#antora)
+- [4 MKDocs](#mkdocs)
+- [5 Gitlab](#gitlab)
 
 
 # パッケージインストール
@@ -11,7 +11,7 @@
 $ pnpm install
 ```
 
-# ツール1_tbls
+# tbls
 
 ## セットアップ
 1. Homebrewでtbldツールをインストール
@@ -110,7 +110,7 @@ $ pnpm install
 [目次に戻る](#目次)
 
 
-## ツール2_schemaspy
+# schemaspy
 
 ## 事前セッティング(インストール/ ダウンロード)
 
@@ -177,7 +177,6 @@ Caused by: java.lang.UnsupportedClassVersionError: org/openjdk/nashorn/api/scrip
 * 各テーブル・カラムに対するコメントの記載や、テーブルをカテゴライズなどのカスタマイズがしにくい？
 * index.htmlを参照するためには、github pagesなどを使用する必要がある。ただし、github pagesはpublicでないとサイトを公開できない。Private公開&内部でのみサイトを公開するためには、Github Enterpriseを使用する必要がある？
 
-
 ## 参考文献
 * [公式ドキュメント](https://schemaspy.org/)
 * [Github](https://github.com/schemaspy)
@@ -193,7 +192,7 @@ Caused by: java.lang.UnsupportedClassVersionError: org/openjdk/nashorn/api/scrip
 [目次に戻る](#目次)
 
 
-# ツール3_Antora
+# Antora
 * 詳細は[こちらのリポジトリ](https://github.com/azoom-taiga-sato/antora-demo-playbook)を参照
 
 ## セットアップ
@@ -246,7 +245,7 @@ Caused by: java.lang.UnsupportedClassVersionError: org/openjdk/nashorn/api/scrip
 
 [目次に戻る](#目次)
 
-# ツール4_MKDocs
+# MKDocs
 
 ## セットアップ
 1. 仮想環境 (venv) を設定
@@ -289,7 +288,7 @@ Caused by: java.lang.UnsupportedClassVersionError: org/openjdk/nashorn/api/scrip
 * テーマや多言語設定、Nav・サイドバーなどカスタマイズが可能
 * docs直下フォルダが一つのセクションとみなされ、タブになる。1フォルダ = 1セクションでシンプル。
 * 多分、Version管理もできる。[こちら](https://qiita.com/laughingman/items/353b9cffb28c4af38b34)
-* Markdown言語しだけでなく、HTMLファイルも認識する。(Path指定してリンクからアクセス可能)
+* Markdown言語しだけでなく、HTMLファイルも認識する。(Path指定してリンクからアクセス可能/ ビルド後にスタイルが消える問題が発生中)
 
 ### 🙅
 
@@ -310,7 +309,7 @@ Caused by: java.lang.UnsupportedClassVersionError: org/openjdk/nashorn/api/scrip
 
 [目次に戻る](#目次)
 
-# ツール5_Gitlab
+# Gitlab
 * Organization限定で公開可能?
 
 ## Gitlabとは
