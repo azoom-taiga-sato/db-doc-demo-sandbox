@@ -26,6 +26,7 @@ theme:
       primary: teal
       accent: lime
 plugins:
+  - mike
   - search
   # - i18n:
   #     default_language: en
@@ -45,6 +46,13 @@ plugins:
   - exclude:
       glob:
         -  'README/*'
+  #     alias_type: symlink
+  #     redirect_template: null
+  #     deploy_prefix: ''
+  #     canonical_version: null
+      # version_selector: true
+  #     css_dir: css
+  #     javascript_dir: js
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
@@ -61,3 +69,6 @@ markdown_extensions:
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
+extra:
+  version:
+    provider: mike

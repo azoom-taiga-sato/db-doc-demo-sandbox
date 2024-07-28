@@ -270,6 +270,11 @@ Caused by: java.lang.UnsupportedClassVersionError: org/openjdk/nashorn/api/scrip
     * docs傘下の特定のフォルダをbuildの除外に設定
         * a) `$ pip install mkdocs-exclude`
         * b) `mkdocs.yml`のpluginで設定
+    * Version管理
+        * a) `$ pip install mike`
+        * b) `mkdocs.yml`のpluginで設定
+        * c) `$ mike deploy [version]`で指定のversionをデプロイ
+        * d) 
 
 3. `mkdocs serve`でローカル環境でサイトアクセス可能
 
@@ -291,6 +296,7 @@ Caused by: java.lang.UnsupportedClassVersionError: org/openjdk/nashorn/api/scrip
 * Markdown言語しだけでなく、HTMLファイルも認識する。(Path指定してリンクからアクセス可能/ ビルド後にスタイルが消える問題が発生中)
 
 ### 🙅
+* MKDocs
 
 ## 参考文献
 * [MkDocs + plugin : mkdocs-static-i18n で多言語対応サイトを構築する](https://qiita.com/tomoten/items/26706f2eafe84f70b1a6)
@@ -306,6 +312,7 @@ Caused by: java.lang.UnsupportedClassVersionError: org/openjdk/nashorn/api/scrip
 * [How To Create STUNNING Code Documentation With MkDocs Material Theme in Youtube](https://www.youtube.com/watch?v=Q-YA_dA8C20&t=205s)
 * [MkDocs で .git や node_modules など指定ディレクトリを exclude(除外) したい](https://stakiran.hatenablog.com/entry/2019/02/22/210613)
 * [MkDocs+Read the Docsで面倒なWordのドキュメント管理から抜け出す](https://qiita.com/laughingman/items/353b9cffb28c4af38b34)
+* [Setting up versioning (公式Doc)](https://squidfunk.github.io/mkdocs-material/setup/setting-up-versioning/)
 
 [目次に戻る](#目次)
 
