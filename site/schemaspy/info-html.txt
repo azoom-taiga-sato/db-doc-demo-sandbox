@@ -1,0 +1,5 @@
+date=2024-07-28 22:22:19+0900
+os=Mac OS X 14.5
+schemaspy-version=6.2.4
+schemaspy-build=6.2.4.41 2023-07-21 11:15:12
+renderer=Graphviz dot 12.0.0 

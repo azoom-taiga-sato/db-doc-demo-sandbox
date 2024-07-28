@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+      "outDir": "./dist",
+      "target": "esnext",
+      "module": "esnext",
+      "strict": true,
+      "esModuleInterop": true,
+      "allowJs": true,
+      "moduleResolution": "node"
+    },
+    "ts-node": {
+      "esm": true
+    }
+  }

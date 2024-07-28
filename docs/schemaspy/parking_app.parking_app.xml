@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?><database name="parking_app" schema="parking_app" type="MySQL - 8.3.0">
+   <tables>
+      <table catalog="parking_app" name="__drizzle_migrations" numRows="0" remarks="" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="20" type="BIGINT UNSIGNED" typeCode="-5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="hash" nullable="false" remarks="" size="65535" type="TEXT" typeCode="-1"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="created_at" nullable="true" remarks="" size="19" type="BIGINT" typeCode="-5"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="id" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table catalog="parking_app" name="admins" numRows="7" remarks="" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="19" type="BIGINT" typeCode="-5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="false" remarks="" size="50" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="email" nullable="false" remarks="" size="50" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="email_verified" nullable="true" remarks="" size="50" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="password" nullable="false" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="created_at" nullable="true" remarks="" size="19" type="TIMESTAMP" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="updated_at" nullable="true" remarks="" size="19" type="TIMESTAMP" typeCode="93"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="admins_email_unique" unique="true">
+            <column ascending="true" name="email"/>
+         </index>
+         <index name="name_idx" unique="false">
+            <column ascending="true" name="name"/>
+         </index>
+      </table>
+      <table catalog="parking_app" name="areas" numRows="6" remarks="" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="19" type="BIGINT" typeCode="-5">
+            <child catalog="parking_app" column="area_id" foreignKey="reservations_area_id_areas_id_fk" implied="false" onDeleteCascade="false" table="reservations"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="false" remarks="" size="50" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="attribute_id" nullable="false" remarks="" size="19" type="BIGINT" typeCode="-5">
+            <parent catalog="parking_app" column="id" foreignKey="areas_attribute_id_attributes_id_fk" implied="false" onDeleteCascade="false" table="attributes"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="fee_id" nullable="false" remarks="" size="19" type="BIGINT" typeCode="-5">
+            <parent catalog="parking_app" column="id" foreignKey="areas_fee_id_fees_id_fk" implied="false" onDeleteCascade="false" table="fees"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="address" nullable="false" remarks="" size="50" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="max_num" nullable="false" remarks="" size="10" type="INT" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="created_at" nullable="true" remarks="" size="19" type="TIMESTAMP" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="updated_at" nullable="true" remarks="" size="19" type="TIMESTAMP" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="deleted_at" nullable="true" remarks="" size="19" type="TIMESTAMP" typeCode="93"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="areas_attribute_id_attributes_id_fk" unique="false">
+            <column ascending="true" name="attribute_id"/>
+         </index>
+         <index name="areas_fee_id_fees_id_fk" unique="false">
+            <column ascending="true" name="fee_id"/>
+         </index>
+         <index name="areas_name_unique" unique="true">
+            <column ascending="true" name="name"/>
+         </index>
+         <index name="name_idx" unique="false">
+            <column ascending="true" name="name"/>
+         </index>
+      </table>
+      <table catalog="parking_app" name="attributes" numRows="8" remarks="" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="19" type="BIGINT" typeCode="-5">
+            <child catalog="parking_app" column="attribute_id" foreignKey="areas_attribute_id_attributes_id_fk" implied="false" onDeleteCascade="false" table="areas"/>
+            <child catalog="parking_app" column="attribute_id" foreignKey="users_attribute_id_attributes_id_fk" implied="false" onDeleteCascade="false" table="users"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="false" remarks="" size="50" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="created_at" nullable="true" remarks="" size="19" type="TIMESTAMP" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="updated_at" nullable="true" remarks="" size="19" type="TIMESTAMP" typeCode="93"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="name_idx" unique="false">
+            <column ascending="true" name="name"/>
+         </index>
+      </table>
+      <table catalog="parking_app" name="fees" numRows="7" remarks="" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="19" type="BIGINT" typeCode="-5">
+            <child catalog="parking_app" column="fee_id" foreignKey="areas_fee_id_fees_id_fk" implied="false" onDeleteCascade="false" table="areas"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="false" remarks="" size="50" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="fee" nullable="true" remarks="" size="10" type="INT" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="created_at" nullable="true" remarks="" size="19" type="TIMESTAMP" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="updated_at" nullable="true" remarks="" size="19" type="TIMESTAMP" typeCode="93"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="fees_name_unique" unique="true">
+            <column ascending="true" name="name"/>
+         </index>
+         <index name="name_idx" unique="false">
+            <column ascending="true" name="name"/>
+         </index>
+      </table>
+      <table catalog="parking_app" name="reservations" numRows="8" remarks="" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="19" type="BIGINT" typeCode="-5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="user_id" nullable="false" remarks="" size="19" type="BIGINT" typeCode="-5">
+            <parent catalog="parking_app" column="id" foreignKey="reservations_user_id_users_id_fk" implied="false" onDeleteCascade="true" table="users"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="area_id" nullable="false" remarks="" size="19" type="BIGINT" typeCode="-5">
+            <parent catalog="parking_app" column="id" foreignKey="reservations_area_id_areas_id_fk" implied="false" onDeleteCascade="false" table="areas"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="date" nullable="false" remarks="" size="10" type="DATE" typeCode="91"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="fee_log" nullable="true" remarks="" size="10" type="INT" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="created_at" nullable="true" remarks="" size="19" type="TIMESTAMP" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="updated_at" nullable="true" remarks="" size="19" type="TIMESTAMP" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="deleted_at" nullable="true" remarks="" size="19" type="TIMESTAMP" typeCode="93"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="reservations_area_id_areas_id_fk" unique="false">
+            <column ascending="true" name="area_id"/>
+         </index>
+         <index name="reservations_user_id_users_id_fk" unique="false">
+            <column ascending="true" name="user_id"/>
+         </index>
+      </table>
+      <table catalog="parking_app" name="users" numRows="8" remarks="" type="TABLE">
+         <column autoUpdated="true" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="" size="19" type="BIGINT" typeCode="-5">
+            <child catalog="parking_app" column="user_id" foreignKey="reservations_user_id_users_id_fk" implied="false" onDeleteCascade="true" table="reservations"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name" nullable="false" remarks="" size="50" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="email" nullable="false" remarks="" size="50" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="email_verified" nullable="true" remarks="" size="50" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="password" nullable="false" remarks="" size="255" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="birthday" nullable="false" remarks="" size="10" type="DATE" typeCode="91"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="phone_number" nullable="false" remarks="" size="50" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="plate_number" nullable="false" remarks="" size="50" type="VARCHAR" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="attribute_id" nullable="false" remarks="" size="19" type="BIGINT" typeCode="-5">
+            <parent catalog="parking_app" column="id" foreignKey="users_attribute_id_attributes_id_fk" implied="false" onDeleteCascade="false" table="attributes"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="created_at" nullable="true" remarks="" size="19" type="TIMESTAMP" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="updated_at" nullable="true" remarks="" size="19" type="TIMESTAMP" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="11" name="deleted_at" nullable="true" remarks="" size="19" type="TIMESTAMP" typeCode="93"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="PRIMARY" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+         <index name="name_idx" unique="false">
+            <column ascending="true" name="name"/>
+         </index>
+         <index name="users_attribute_id_attributes_id_fk" unique="false">
+            <column ascending="true" name="attribute_id"/>
+         </index>
+         <index name="users_email_unique" unique="true">
+            <column ascending="true" name="email"/>
+         </index>
+      </table>
+   </tables>
+</database>

@@ -1,0 +1,108 @@
+name: Database Migration
+
+on:
+  pull_request:
+    types: [synchronize,opened,reopened]
+    branches:
+      - develop
+    # paths:
+    #   - "drizzle/migrations/*.sql"
+
+jobs:
+  tbls-doc-creation:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_DATABASE: tbls_demo_box
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - name: Checkout head branch
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+      
+      # DBマイグレーション (sqlファイルに"--> statement-breakpoint"があるとエラーで終了する)
+      # - name: Apply Migrations
+      #   run: |
+      #     for file in drizzle/migrations/*.sql; do
+      #       mysql -h 127.0.0.1 -u root tbls_demo_box < "$file" && echo "Applied $file" || exit 1
+      #     done
+
+      # DBマイグレーション (sqlファイルに"--> statement-breakpoint"がある場合削除してマイグレーション)
+      - name: Apply Migrations
+        run: |
+          for file in drizzle/migrations/*.sql; do
+            # 'statement-breakpoint'がファイル内に存在するか確認
+            if grep -q 'statement-breakpoint' "$file"; then
+              # 存在する場合、一時ファイルを作成
+              tmp_file=$(mktemp)
+              # .sqlファイルから'statement-breakpoint'を削除して一時ファイルに保存
+              sed 's/--> statement-breakpoint//g' "$file" > "$tmp_file"
+              # 修正されたSQLファイルをMySQLに適用
+              mysql -h 127.0.0.1 -u root tbls_demo_box < "$tmp_file" && echo "Applied $file" || exit 1
+              # 一時ファイルを削除
+              rm "$tmp_file"
+            else
+              # 'statement-breakpoint'が存在しない場合、直接ファイルを適用
+              mysql -h 127.0.0.1 -u root tbls_demo_box < "$file" && echo "Applied $file" || exit 1
+            fi
+          done
+
+      # DatabaseとTableの確認    
+      - name: Check Databases and Tables
+        run: |
+          echo "Showing databases..."
+          mysql -h 127.0.0.1 -u root -e "SHOW DATABASES;"
+          echo "Using tbls_demo_box database..."
+          mysql -h 127.0.0.1 -u root -e "USE tbls_demo_box; SHOW TABLES;"
+
+      # tblsのセットアップ
+      - name: Setup tbls
+        uses: k1low/setup-tbls@v1
+
+      # tbls docの実行
+      - name: Run tbls doc
+        env:
+          DATABASE: tbls_demo_box
+        run: tbls doc --force
+
+      # tbld diffの実行 (tbls filesがすでに存在する前提)
+      # - name: Check for file changes
+      #   id: diff
+      #   run: |
+      #     git diff --exit-code --quiet || echo "changed=true" >> $GITHUB_OUTPUT
+
+      # - name: Echo file changed value
+      #   run: "echo Files changed: ${{ steps.diff.outputs.changed }}"
+        
+      # tbls doc filesをcommit & push  
+      - name: Commit and Push
+        # if: steps.diff.outputs.changed == 'true'
+        run: |
+          git add .
+          git config user.name github-actions
+          git config user.email github-actions[bot]@users.noreply.github.com
+          git commit -m "update tbls doc"
+          git push
+      
+      # 最新のコミットSHA（コミットの一意の識別子）を取得
+      - name: Get latest commit SHA
+        # if: steps.file-diff.outputs.changed == 'true'
+        id: get-sha
+        run: |
+          echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+      
+      # PRにコメント入力
+      - name: Comment PR
+        # if: steps.file-diff.outputs.changed == 'true'
+        run: |
+          comment_body=$(echo -e "${{ steps.get-sha.outputs.sha }} でスキーマが更新されました :tada: \n修正を行う場合は事前に\`git pull origin ${{ github.head_ref }}\`を実行してください。")
+          echo "$comment_body" | gh pr comment ${{ github.event.pull_request.number }} --body-file -
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

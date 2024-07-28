@@ -1,0 +1,138 @@
+name: test
+
+on: [push, pull_request]
+
+jobs:
+  tbls-doc-creation-local:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+        env:
+          MYSQL_DATABASE: tbls_demo
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up MySQL client
+      run: sudo apt-get update && sudo apt-get install -y mysql-client
+
+    - name: Wait for MySQL
+      run: |
+        for i in {30..0}; do
+          if mysqladmin ping -h "127.0.0.1" --silent; then
+            break
+          fi
+          echo 'MySQL is unavailable - sleeping'
+          sleep 1
+        done
+        if [ "$i" = 0 ]; then
+          echo 'MySQL is still unavailable - exiting'
+          exit 1
+        fi
+
+    # - name: Apply Migrations
+    #   run: |
+    #     mysql -h 127.0.0.1 -uroot -ppassword -e 'CREATE DATABASE IF NOT EXISTS my_database;'
+    #     for file in drizzle/migrations/*.sql; do
+    #       mysql -h 127.0.0.1 -uroot -ppassword my_database < "$file" && echo "Applied $file" || exit 1
+    #     done
+
+      # DBマイグレーション (sqlファイルに"--> statement-breakpoint"がある場合削除してマイグレーション)
+    - name: Apply Migrations
+      run: |
+        for file in drizzle/migrations/*.sql; do
+          echo "Processing $file"
+          # '--> statement-breakpoint'がファイル内に存在するか確認
+          if grep -q 'statement-breakpoint' "$file"; then
+            echo "'--> statement-breakpoint' found in $file"
+            # 存在する場合、一時ファイルを作成
+            tmp_file=$(mktemp)
+            # '--> statement-breakpoint'を削除して一時ファイルに保存
+            sed 's/--> statement-breakpoint//g' "$file" > "$tmp_file"
+            # 一時ファイルの内容を表示
+            echo "Contents of $tmp_file:"
+            cat "$tmp_file"
+            # 一時ファイルを使用してマイグレーションを適用
+            if mysql -h 127.0.0.1 -u root tbls_demo < "$tmp_file"; then
+              echo "Applied $file"
+            else
+              echo "Failed to apply $file"
+              cat "$tmp_file"  # エラー時に一時ファイルの内容を表示
+              rm "$tmp_file"
+              exit 1
+            fi
+            # 一時ファイルを削除
+            rm "$tmp_file"
+          else
+            echo "'--> statement-breakpoint' not found in $file"
+            # '--> statement-breakpoint'が存在しない場合、通常通りマイグレーションを適用
+            if mysql -h 127.0.0.1 -u root tbls_demo < "$file"; then
+              echo "Applied $file"
+            else
+              echo "Failed to apply $file"
+              cat "$file"  # エラー時に元のファイルの内容を表示
+              exit 1
+            fi
+          fi
+        done
+
+    - name: Setup tbls
+      uses: k1LoW/setup-tbls@v1
+
+    - name: Generate db docs
+      run: tbls doc mysql://root:@127.0.0.1:3306/tbls_demo
+
+    - name: Move Generated Docs with Date
+      run: |
+        # 現在の日付を取得
+        DATE=$(date +'%Y-%m-%d')
+        echo "Current date: $DATE"
+        
+        # 一時ディレクトリを作成
+        TMP_DIR=$(mktemp -d)
+        echo "Temporary directory: $TMP_DIR"
+        
+        # 生成されたファイルを一時ディレクトリに移動
+        mv docs/dbdoc/* $TMP_DIR/
+        if [ $? -ne 0 ]; then
+            echo "Error moving files to temporary directory"
+            exit 1
+        fi
+        echo "Moved files to temporary directory"
+        
+        # 一時ディレクトリの内容を確認
+        ls -la $TMP_DIR
+        
+        # 目的のディレクトリを作成
+        TARGET_DIR="docs/dbdoc/act-local/$DATE"
+        mkdir -p $TARGET_DIR
+        if [ $? -ne 0 ]; then
+            echo "Error creating target directory"
+            exit 1
+        fi
+        echo "Created target directory: $TARGET_DIR"
+        
+        # 一時ディレクトリから目的のディレクトリにファイルのみを移動
+        mv $TMP_DIR/* $TARGET_DIR/
+        if [ $? -ne 0 ]; then
+            echo "Error moving files to target directory"
+            exit 1
+        fi
+        echo "Moved files to target directory"
+        
+        # 目的のディレクトリの内容を確認
+        ls -la $TARGET_DIR
+        
+        # 一時ディレクトリを削除
+        rm -r $TMP_DIR
+        echo "Removed temporary directory"

@@ -1,0 +1,32 @@
+
+dsn: mysql://root@localhost:3306/${DATABASE}
+# dsn: mysql://root:password@localhost:3390/tbls_demo_box
+
+docPath: ./docs/dbdoc
+
+viewpoints:
+  - 
+    name: User情報
+    desc: >
+      User情報に関するドキュメント
+    tables:
+      - user
+    
+comments:
+  -
+    table: user
+    labels:
+      - user
+      - privacy data
+    # table comment
+    tableComment: Users table
+    # column comments
+    columnComments:
+      email: Email address as login id. ex. user@example.com
+
+lint:
+  requireColumnComment:
+    enabled: true
+  columnCount:
+    enabled: true
+    max: 10

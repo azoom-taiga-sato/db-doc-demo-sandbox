@@ -1,0 +1,27 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "db-generate": "npx drizzle-kit generate",
+    "db-migrate": "npx drizzle-kit migrate",
+    "db-studio": "npx drizzle-kit studio",
+    "db-ref": "docker-compose exec mysql bash",
+    "tbls-act": "act -j tbls-doc-creation-local -W ./.github/workflows/tbls-doc-local.yml -b"
+  },
+  "dependencies": {
+    "drizzle-kit": "^0.23.0",
+    "drizzle-orm": "^0.32.0",
+    "drizzle-zod": "^0.5.1",
+    "jiti": "^1.21.6",
+    "mysql2": "^3.10.3",
+    "nuxt": "^3.12.4",
+    "vue": "latest",
+    "zod": "^3.23.8"
+  }
+}
