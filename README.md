@@ -205,6 +205,14 @@ Caused by: java.lang.UnsupportedClassVersionError: org/openjdk/nashorn/api/scrip
 
 3. `$ npx antora --fetch antora-playbook.yml`でサイトを生成して、ローカルで確認
 
+## 特徴
+
+### 🙆
+* カスタマイズのバライティ多い。
+* Versionで管理可能
+
+### 🙅
+
 ## 参考文献
 * [Antora Official Docs](https://antora.org/)
 * [Antora Demo](https://gitlab.com/antora/demo)
@@ -253,6 +261,7 @@ Caused by: java.lang.UnsupportedClassVersionError: org/openjdk/nashorn/api/scrip
 ### 🙆
 * テーマや多言語設定、Nav・サイドバーなどカスタマイズが可能
 * docs直下フォルダが一つのセクションとみなされ、タブになる。1フォルダ = 1セクションでシンプル。
+* 多分、Version管理もできる。[こちら](https://qiita.com/laughingman/items/353b9cffb28c4af38b34)
 
 ### 🙅
 * Markdown言語しか認識できない。HTMLファイルをページとして認識させるためには、
@@ -270,6 +279,7 @@ Caused by: java.lang.UnsupportedClassVersionError: org/openjdk/nashorn/api/scrip
 * [mkdocs-material-youtube-tutorial in github](https://github.com/james-willett/mkdocs-material-youtube-tutorial)
 * [How To Create STUNNING Code Documentation With MkDocs Material Theme in Youtube](https://www.youtube.com/watch?v=Q-YA_dA8C20&t=205s)
 * [MkDocs で .git や node_modules など指定ディレクトリを exclude(除外) したい](https://stakiran.hatenablog.com/entry/2019/02/22/210613)
+* [MkDocs+Read the Docsで面倒なWordのドキュメント管理から抜け出す](https://qiita.com/laughingman/items/353b9cffb28c4af38b34)
 
 [目次に戻る](#目次)
 
