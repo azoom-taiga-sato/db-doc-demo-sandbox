@@ -275,6 +275,7 @@ Caused by: java.lang.UnsupportedClassVersionError: org/openjdk/nashorn/api/scrip
         * b) `mkdocs.yml`のpluginで設定
         * c) `$ mike deploy --push --update-aliases [version] latest`で指定のversionをデプロイ
         * d) `$ mike serve`=>`http://localhost:8000/version/`にアクセス => versionタブで各versionに移動可能
+        * e) Github Actions用のymlファイル作成 + Github Pagesの設定を変更
 
 3. `mkdocs serve`でローカル環境でサイトアクセス可能
 
