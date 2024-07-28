@@ -273,8 +273,8 @@ Caused by: java.lang.UnsupportedClassVersionError: org/openjdk/nashorn/api/scrip
     * Version管理
         * a) `$ pip install mike`
         * b) `mkdocs.yml`のpluginで設定
-        * c) `$ mike deploy [version]`で指定のversionをデプロイ
-        * d) 
+        * c) `$ mike deploy --push --update-aliases [version] latest`で指定のversionをデプロイ
+        * d) `$ mike serve`=>`http://localhost:8000/version/`にアクセス => versionタブで各versionに移動可能
 
 3. `mkdocs serve`でローカル環境でサイトアクセス可能
 
@@ -313,6 +313,8 @@ Caused by: java.lang.UnsupportedClassVersionError: org/openjdk/nashorn/api/scrip
 * [MkDocs で .git や node_modules など指定ディレクトリを exclude(除外) したい](https://stakiran.hatenablog.com/entry/2019/02/22/210613)
 * [MkDocs+Read the Docsで面倒なWordのドキュメント管理から抜け出す](https://qiita.com/laughingman/items/353b9cffb28c4af38b34)
 * [Setting up versioning (公式Doc)](https://squidfunk.github.io/mkdocs-material/setup/setting-up-versioning/)
+* [Docs versioning: Docusaurus and MkDocs](https://tw-docs.com/docs/static-site-generators/docs-versioning/)
+* [mike in github](https://github.com/jimporter/mike)
 
 [目次に戻る](#目次)
 
